@@ -2,10 +2,14 @@ package snake;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -23,7 +27,14 @@ public class Snake extends Application {
         final int frameDelay = 50_000_000;
         
         final Canvas canvas = new Canvas(gridWidth * cellSize, gridHeight * cellSize);
-        final BorderPane root = new BorderPane(canvas,null,null,null,null);
+        
+        final Label scoreLbl = new Label("Score: 0");
+        StackPane.setAlignment(scoreLbl, Pos.TOP_LEFT);
+        StackPane.setMargin(scoreLbl, new Insets(10));
+        scoreLbl.setFont(new Font(20));
+        
+        final StackPane root = new StackPane(canvas, scoreLbl);
+        
         final Scene scene = new Scene(root);
         
         final GameController game = new GameController(canvas.getGraphicsContext2D(), gridWidth, gridHeight, cellSize);
@@ -37,6 +48,7 @@ public class Snake extends Application {
             public void handle(long currentNanoTime) {
                 if (currentNanoTime - updateNanoTime >= frameDelay) {
                     game.tick();
+                    scoreLbl.setText("Score: " + game.getScore());
                     updateNanoTime = currentNanoTime;
                 }
             }

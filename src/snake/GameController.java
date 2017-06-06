@@ -76,11 +76,8 @@ public class GameController {
                 }
             }
         }
+        gc.strokeRect(0, 0, gridWidth * cellSize, gridHeight * cellSize);        
     }
-    
-//    private boolean contains(List<Integer[]> ar, Integer[] coords) {
-//        return ar.stream().anyMatch((elem) -> (Arrays.equals(elem, coords)));
-//    }
     
     private void drawCell(int x, int y, Color color) {
         gc.setFill(color);
@@ -165,5 +162,9 @@ public class GameController {
             keyPressedThisTick = true;
         }
         ke.consume();
+    }
+    
+    public int getScore() {
+        return score;
     }
 }
