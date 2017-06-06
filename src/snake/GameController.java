@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package snake;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -25,8 +20,8 @@ public class GameController {
     private boolean shouldGrow = false;
     private boolean keyPressedThisTick = false;
     
-    private final List<Integer[]> snake = new ArrayList<>();
-    private Integer[] apple = new Integer[2];
+    private final List<Point2D> snake = new ArrayList<>();
+    private Point2D apple;
     
     private enum Direction {NORTH, EAST, SOUTH, WEST}
     private Direction direction = Direction.WEST;
@@ -56,20 +51,20 @@ public class GameController {
     }
     
     private void addSnakeCell(int x, int y) {
-        snake.add(new Integer[] {x, y});
+        snake.add(new Point2D(x, y));
     }
     
     private void createApple() {
         Random rnd = new Random();
-        apple = new Integer[] {rnd.nextInt(gridWidth), rnd.nextInt(gridHeight)};
+        apple = new Point2D(rnd.nextInt(gridWidth), rnd.nextInt(gridHeight));
     }
     
     private void drawGame() {
         for (int x = 0; x < gridWidth; x++) {
             for (int y = 0; y < gridHeight; y++) {
-                if (contains(snake, new Integer[] {x, y})) {
+                if (snake.contains(new Point2D(x, y))) {
                     drawCell(x, y, Color.GREEN);
-                } else if (Arrays.equals(apple, new Integer[] {x, y})) {
+                } else if (apple.equals(new Point2D(x, y))) {
                     drawCell(x, y, Color.RED);
                 } else {
                     drawCell(x, y, Color.WHITE);
@@ -78,9 +73,9 @@ public class GameController {
         }
     }
     
-    private boolean contains(List<Integer[]> ar, Integer[] coords) {
-        return ar.stream().anyMatch((elem) -> (Arrays.equals(elem, coords)));
-    }
+//    private boolean contains(List<Integer[]> ar, Integer[] coords) {
+//        return ar.stream().anyMatch((elem) -> (Arrays.equals(elem, coords)));
+//    }
     
     private void drawCell(int x, int y, Color color) {
         gc.setFill(color);
@@ -88,47 +83,47 @@ public class GameController {
     }
     
     private void moveSnake() {
-        Integer[] snakeTail = snake.get(snake.size() - 1);
+        Point2D snakeTail = snake.get(snake.size() - 1);
         
         for (int i = snake.size() - 1; i > 0; i--) {
-            snake.set(i, new Integer[] {snake.get(i - 1)[0], snake.get(i - 1)[1]});
+            snake.set(i, new Point2D(snake.get(i - 1).getX(), snake.get(i - 1).getY()));
         }
 //        System.out.println("snake is " + snake.size() + " cells big");
         
-        Integer[] snakeHeadCoords = snake.get(0);
+        Point2D snakeHeadCoords = snake.get(0);
         switch (direction) {
             case NORTH:
-                snakeHeadCoords[1]--;
+                snakeHeadCoords = snakeHeadCoords.add(0, -1);
                 break;
             case EAST:
-                snakeHeadCoords[0]++;
+                snakeHeadCoords = snakeHeadCoords.add(1, 0);
                 break;
             case SOUTH:
-                snakeHeadCoords[1]++;
+                snakeHeadCoords = snakeHeadCoords.add(0, 1);
                 break;
             case WEST:
-                snakeHeadCoords[0]--;              
+                snakeHeadCoords = snakeHeadCoords.add(-1, 0);
                 break;
         }
         snake.set(0, snakeHeadCoords);
         
         if (shouldGrow) {
-            addSnakeCell(snakeTail[0], snakeTail[1]);
+            addSnakeCell((int) snakeTail.getX(), (int) snakeTail.getY());
             shouldGrow = false;
         }        
     }
     
     private boolean hasEatenApple() {
-        return Arrays.equals(snake.get(0), apple);
+        return apple.equals(snake.get(0));
     }
     
     private boolean hasCollided() {
         for (int i = 1; i < snake.size(); i++) {
-            if (Arrays.equals(snake.get(0), snake.get(i))) {
+            if (snake.get(0).equals(snake.get(i))) {
                 return true;
             }
         }
-        return snake.get(0)[0] < 0 || snake.get(0)[0] > gridWidth || snake.get(0)[1] < 0 || snake.get(0)[1] > gridHeight;
+        return snake.get(0).getX() < 0 || snake.get(0).getX() > gridWidth || snake.get(0).getY() < 0 || snake.get(0).getY() > gridHeight;
     }
     
     public void tick() {
