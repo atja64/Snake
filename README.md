@@ -9,4 +9,6 @@ A version of the classic game Snake implemented in Java. Uses the JavaFX canvas 
   <li>An apple</li>
   <li>The snake grows!</li>
   <li>The snake can die :(</li>
+  <li>Score counter</li>
+  <li>Press p to pause</li>
 </ul>
