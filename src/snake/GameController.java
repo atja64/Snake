@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
@@ -19,6 +20,7 @@ public class GameController {
     private int score = 0;
     private boolean shouldGrow = false;
     private boolean keyPressedThisTick = false;
+    private boolean paused = false;
     
     private final List<Point2D> snake = new ArrayList<>();
     private Point2D apple;
@@ -129,23 +131,26 @@ public class GameController {
     }
     
     public void tick() {
-        moveSnake();
-        if (hasEatenApple()) {
-            createApple();
-            shouldGrow = true;
-            score++;
+        if (!paused) {
+            moveSnake();
+            if (hasEatenApple()) {
+                createApple();
+                shouldGrow = true;
+                score++;
+            }
+            if (hasCollided()) {
+                killSnake();
+                startGame();
+            }
+            drawGame();
         }
-        if (hasCollided()) {
-            killSnake();
-            startGame();
-        }
-        keyPressedThisTick = false;
-        drawGame();
+        keyPressedThisTick = false;        
     }
     
     public void handleKeyPressed(KeyEvent ke) {
-        if (!keyPressedThisTick) {
-            switch(ke.getCode()) {
+        KeyCode keyCode = ke.getCode();
+        if (!keyPressedThisTick && !paused) {
+            switch(keyCode) {
                 case UP:
                     if (direction != Direction.SOUTH) direction = Direction.NORTH;
                     break;
@@ -161,10 +166,17 @@ public class GameController {
             }
             keyPressedThisTick = true;
         }
+        if (keyCode == KeyCode.P) {
+            paused = !paused;
+        }
         ke.consume();
     }
     
     public int getScore() {
         return score;
+    }
+    
+    public boolean isPaused() {
+        return paused;
     }
 }

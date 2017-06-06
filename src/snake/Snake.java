@@ -1,5 +1,6 @@
 package snake;
 
+import java.awt.GraphicsEnvironment;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -31,9 +32,14 @@ public class Snake extends Application {
         final Label scoreLbl = new Label("Score: 0");
         StackPane.setAlignment(scoreLbl, Pos.TOP_LEFT);
         StackPane.setMargin(scoreLbl, new Insets(10));
-        scoreLbl.setFont(new Font(20));
+        scoreLbl.setFont(new Font("Courier New", 20));
         
-        final StackPane root = new StackPane(canvas, scoreLbl);
+        final Label pausedLbl = new Label();
+        StackPane.setAlignment(pausedLbl, Pos.TOP_RIGHT);
+        StackPane.setMargin(pausedLbl, new Insets(10));
+        pausedLbl.setFont(new Font("Courier New", 20));
+        
+        final StackPane root = new StackPane(canvas, scoreLbl, pausedLbl);
         
         final Scene scene = new Scene(root);
         
@@ -49,6 +55,11 @@ public class Snake extends Application {
                 if (currentNanoTime - updateNanoTime >= frameDelay) {
                     game.tick();
                     scoreLbl.setText("Score: " + game.getScore());
+                    if (game.isPaused()) {
+                        pausedLbl.setText("Paused");
+                    } else {
+                        pausedLbl.setText("");
+                    }
                     updateNanoTime = currentNanoTime;
                 }
             }
