@@ -28,7 +28,7 @@ public class Snake extends Application {
         
         final GameController game = new GameController(canvas.getGraphicsContext2D(), gridWidth, gridHeight, cellSize);
         
-        scene.setOnKeyPressed((KeyEvent t) -> game.keyPressed(t));
+        scene.setOnKeyPressed((KeyEvent t) -> game.handleKeyPressed(t));
         
         new AnimationTimer() {
             long updateNanoTime = System.nanoTime();

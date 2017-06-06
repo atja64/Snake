@@ -24,7 +24,7 @@ public class GameController {
     private Point2D apple;
     
     private enum Direction {NORTH, EAST, SOUTH, WEST}
-    private Direction direction = Direction.WEST;
+    private Direction direction;
     
     public GameController(GraphicsContext gc, int gridWidth, int gridHeight, int cellSize) {
         this.gc = gc;
@@ -32,9 +32,14 @@ public class GameController {
         this.gridHeight = gridHeight;
         this.cellSize = cellSize;
         
+        startGame();
+    }
+    
+    private void startGame() {
         createSnake();
         createApple();
-        drawGame();
+        direction = Direction.WEST;
+        score = 0;
     }
     
     private void createSnake() {
@@ -135,32 +140,30 @@ public class GameController {
         }
         if (hasCollided()) {
             killSnake();
-            createSnake();
-            score = 0;
+            startGame();
         }
         keyPressedThisTick = false;
         drawGame();
     }
     
-    public void keyPressed(KeyEvent ke) {
-        if (keyPressedThisTick) {
-            return;
-        }
-        switch(ke.getCode()) {
-            case UP:
-                if (direction != Direction.SOUTH) direction = Direction.NORTH;
-                break;
-            case RIGHT:
-                if (direction != Direction.WEST) direction = Direction.EAST;
-                break;
-            case DOWN:
-                if (direction != Direction.NORTH) direction = Direction.SOUTH;
-                break;
-            case LEFT:
-                if (direction != Direction.EAST) direction = Direction.WEST;
-                break;
+    public void handleKeyPressed(KeyEvent ke) {
+        if (!keyPressedThisTick) {
+            switch(ke.getCode()) {
+                case UP:
+                    if (direction != Direction.SOUTH) direction = Direction.NORTH;
+                    break;
+                case RIGHT:
+                    if (direction != Direction.WEST) direction = Direction.EAST;
+                    break;
+                case DOWN:
+                    if (direction != Direction.NORTH) direction = Direction.SOUTH;
+                    break;
+                case LEFT:
+                    if (direction != Direction.EAST) direction = Direction.WEST;
+                    break;
+            }
+            keyPressedThisTick = true;
         }
         ke.consume();
-        keyPressedThisTick = true;
     }
 }
