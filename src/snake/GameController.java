@@ -25,8 +25,8 @@ public class GameController {
     private boolean paused = false;
     private boolean auto = false;
     
-    private final List<Point2D> snake = new ArrayList<>();
-    private Point2D apple;
+    private final List<Coordinates> snake = new ArrayList<>();
+    private Coordinates apple;
     
     private enum Direction {NORTH, EAST, SOUTH, WEST}
     private Direction direction;
@@ -83,7 +83,7 @@ public class GameController {
      * @param y the y coordinate of the grid location to add
      */
     private void addSnakeCell(int x, int y) {
-        snake.add(new Point2D(x, y));
+        snake.add(new Coordinates(x, y));
     }
     
     /**
@@ -92,7 +92,7 @@ public class GameController {
      */
     private void createApple() {
         Random rnd = new Random();
-        apple = new Point2D(rnd.nextInt(gridWidth), rnd.nextInt(gridHeight));
+        apple = new Coordinates(rnd.nextInt(gridWidth), rnd.nextInt(gridHeight));
     }
     
     /**
@@ -103,9 +103,9 @@ public class GameController {
         //an apple draw red or nothing draw white.
         for (int x = 0; x < gridWidth; x++) {
             for (int y = 0; y < gridHeight; y++) {
-                if (snake.contains(new Point2D(x, y))) {
+                if (contains(snake, new Coordinates(x, y))) {
                     drawCell(x, y, Color.GREEN);
-                } else if (apple.equals(new Point2D(x, y))) {
+                } else if (apple.equals(new Coordinates(x, y))) {
                     drawCell(x, y, Color.RED);
                 } else {
                     drawCell(x, y, Color.WHITE);
@@ -114,6 +114,10 @@ public class GameController {
         }
         //Draw a grid around the game grid
         gc.strokeRect(0, 0, gridWidth * cellSize, gridHeight * cellSize);        
+    }
+    
+    private boolean contains(List<Coordinates> array, Coordinates obj) {
+        return array.stream().anyMatch((elem) -> (obj.equals(elem)));
     }
     
     /**
@@ -131,32 +135,32 @@ public class GameController {
      * Move the snake in the current direction
      */
     private void moveSnake() {
-        Point2D snakeTail = snake.get(snake.size() - 1);
+        Coordinates snakeTail = snake.get(snake.size() - 1);
         
         //Starting from the end of the snake set each cell to the position of the
         //next cell except for the head
         for (int i = snake.size() - 1; i > 0; i--) {
-            snake.set(i, new Point2D(snake.get(i - 1).getX(), snake.get(i - 1).getY()));
+            snake.set(i, new Coordinates(snake.get(i - 1).getX(), snake.get(i - 1).getY()));
         }
         
         //For the head of the snake calculate its new position based on the
         //current direction
-        Point2D snakeHeadCoords = snake.get(0);
+        Coordinates snakeHead = snake.get(0);
         switch (direction) {
             case NORTH:
-                snakeHeadCoords = snakeHeadCoords.add(0, -1);
+                snakeHead = snakeHead.add(0, -1);
                 break;
             case EAST:
-                snakeHeadCoords = snakeHeadCoords.add(1, 0);
+                snakeHead = snakeHead.add(1, 0);
                 break;
             case SOUTH:
-                snakeHeadCoords = snakeHeadCoords.add(0, 1);
+                snakeHead = snakeHead.add(0, 1);
                 break;
             case WEST:
-                snakeHeadCoords = snakeHeadCoords.add(-1, 0);
+                snakeHead = snakeHead.add(-1, 0);
                 break;
         }
-        snake.set(0, snakeHeadCoords);
+        snake.set(0, snakeHead);
         
         //If the snake has eaten an apple append the cell that previously was
         //the tail to the end of the snake

@@ -32,4 +32,27 @@ public class Coordinates {
     public int getY() {
         return y;
     }
+    
+    /**
+     * Checks whether two coordinate objects are equal
+     * @param coords the coordinates to check against
+     * @return true if their x and y values are equal
+     */
+    public boolean equals(Coordinates coords) {
+        if (coords == null) {
+            return false;
+        }
+        return this.x == coords.x && this.y == coords.y;
+    }
+    
+    /**
+     * Returns coordinates after adding the specified values to the x and y
+     * coordinates
+     * @param x the value to add to the x coordinate
+     * @param y the value to add to the y coordinate
+     * @return a new Coordinates object after addition
+     */
+    public Coordinates add(int x, int y) {
+        return new Coordinates(this.x + x, this.y + y);
+    }
 }
