@@ -166,45 +166,55 @@ public class GameController {
         }        
     }
     
-    /**
-     * Calculate which direction the snake should move in when the game is in
-     * auto mode.
-     * TODO: Make better, snake likes to kill itself as it stands ;)
-     */
-    private void calculateBestDirection() {
-        Point2D snakeHead = snake.get(0);
-        double xDif = snakeHead.getX() - apple.getX();
-        double yDif = snakeHead.getY() - apple.getY();
-        if (Math.abs(xDif) < Math.abs(yDif)) {
-            if (yDif < 0) {
-                if (direction == Direction.NORTH) {
-                    direction = Direction.EAST;
-                } else {
-                    direction = Direction.SOUTH;
-                }
-            } else {
-                if (direction == Direction.SOUTH) {
-                    direction = Direction.EAST;
-                } else {
-                    direction = Direction.NORTH;
-                }
-            }
-        } else {
-            if (xDif < 0) {
-                if (direction == Direction.WEST) {
-                    direction = Direction.NORTH;
-                } else {
-                    direction = Direction.EAST;
-                }                
-            } else {
-                if (direction == Direction.EAST) {
-                    direction = Direction.NORTH;
-                } else {
-                    direction = Direction.WEST;
-                }                
-            }
-        }
-    }
+//    /**
+//     * Calculate which direction the snake should move in when the game is in
+//     * auto mode.
+//     * TODO: Make better, snake tends to kill itself as it stands ;)
+//     */
+//    private void calculateBestDirection() {
+//        Point2D snakeHead = snake.get(0);
+//        double xDif = snakeHead.getX() - apple.getX();
+//        double yDif = snakeHead.getY() - apple.getY();
+//        if (Math.abs(xDif) < Math.abs(yDif)) {
+//            if (yDif < 0) {
+//                if (direction == Direction.NORTH) {
+//                    direction = Direction.EAST;
+//                } else {
+//                    direction = Direction.SOUTH;
+//                }
+//            } else {
+//                if (direction == Direction.SOUTH) {
+//                    direction = Direction.EAST;
+//                } else {
+//                    direction = Direction.NORTH;
+//                }
+//            }
+//        } else {
+//            if (xDif < 0) {
+//                if (direction == Direction.WEST) {
+//                    direction = Direction.NORTH;
+//                } else {
+//                    direction = Direction.EAST;
+//                }                
+//            } else {
+//                if (direction == Direction.EAST) {
+//                    direction = Direction.NORTH;
+//                } else {
+//                    direction = Direction.WEST;
+//                }                
+//            }
+//        }
+//    }
+//    
+//    private boolean wouldCollide() {
+//        boolean wouldCollide = false;
+//        List<Point2D> tempSnake = new ArrayList<>(snake);
+//        moveSnake();
+//        if (hasCollided()) {
+//            wouldCollide = true;
+//        }
+//        snake = tempSnake;
+//    }
     
     /**
      * Calculates whether the snake has eaten an apple
@@ -237,9 +247,9 @@ public class GameController {
      */
     public void tick() {
         if (!paused) {
-            if (auto) {
-                calculateBestDirection();
-            }
+//            if (auto) {
+//                calculateBestDirection();
+//            }
             moveSnake();
             if (hasEatenApple()) {
                 createApple();

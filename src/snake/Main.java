@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * providing the AnimationTimer for the game to function.
  * @author Ashley
  */
-public class Snake extends Application {
+public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
