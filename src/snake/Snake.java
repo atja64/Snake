@@ -43,8 +43,14 @@ public class Snake extends Application {
         StackPane.setMargin(pausedLbl, new Insets(10));
         pausedLbl.setFont(new Font("Courier New", 20));
         
+        //A label to display whether the game is in automatic mode or not
+        final Label autoLbl = new Label();
+        StackPane.setAlignment(autoLbl, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(autoLbl, new Insets(10));
+        autoLbl.setFont(new Font("Courier New", 20));
+        
         //A StackPane to group the nodes together
-        final StackPane root = new StackPane(canvas, scoreLbl, pausedLbl);
+        final StackPane root = new StackPane(canvas, scoreLbl, pausedLbl, autoLbl);
         
         //The main scene
         final Scene scene = new Scene(root);
@@ -72,6 +78,11 @@ public class Snake extends Application {
                     } else {
                         pausedLbl.setText("");
                     }
+                    if (game.isAuto()) {
+                        autoLbl.setText("Auto");
+                    } else {
+                        autoLbl.setText("");
+                    }                    
                     updateNanoTime = currentNanoTime;
                 }
             }

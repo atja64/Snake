@@ -23,6 +23,7 @@ public class GameController {
     private boolean shouldGrow = false;
     private boolean keyPressedThisTick = false;
     private boolean paused = false;
+    private boolean auto = false;
     
     private final List<Point2D> snake = new ArrayList<>();
     private Point2D apple;
@@ -166,6 +167,46 @@ public class GameController {
     }
     
     /**
+     * Calculate which direction the snake should move in when the game is in
+     * auto mode.
+     * TODO: Make better, snake likes to kill itself as it stands ;)
+     */
+    private void calculateBestDirection() {
+        Point2D snakeHead = snake.get(0);
+        double xDif = snakeHead.getX() - apple.getX();
+        double yDif = snakeHead.getY() - apple.getY();
+        if (Math.abs(xDif) < Math.abs(yDif)) {
+            if (yDif < 0) {
+                if (direction == Direction.NORTH) {
+                    direction = Direction.EAST;
+                } else {
+                    direction = Direction.SOUTH;
+                }
+            } else {
+                if (direction == Direction.SOUTH) {
+                    direction = Direction.EAST;
+                } else {
+                    direction = Direction.NORTH;
+                }
+            }
+        } else {
+            if (xDif < 0) {
+                if (direction == Direction.WEST) {
+                    direction = Direction.NORTH;
+                } else {
+                    direction = Direction.EAST;
+                }                
+            } else {
+                if (direction == Direction.EAST) {
+                    direction = Direction.NORTH;
+                } else {
+                    direction = Direction.WEST;
+                }                
+            }
+        }
+    }
+    
+    /**
      * Calculates whether the snake has eaten an apple
      * @return true if the snake's head is in the same position as the apple
      */
@@ -196,6 +237,9 @@ public class GameController {
      */
     public void tick() {
         if (!paused) {
+            if (auto) {
+                calculateBestDirection();
+            }
             moveSnake();
             if (hasEatenApple()) {
                 createApple();
@@ -217,22 +261,27 @@ public class GameController {
      */
     public void handleKeyPressed(KeyEvent ke) {
         KeyCode keyCode = ke.getCode();
-        if (!keyPressedThisTick && !paused) {
-            switch(keyCode) {
-                case UP:
-                    if (direction != Direction.SOUTH) direction = Direction.NORTH;
-                    break;
-                case RIGHT:
-                    if (direction != Direction.WEST) direction = Direction.EAST;
-                    break;
-                case DOWN:
-                    if (direction != Direction.NORTH) direction = Direction.SOUTH;
-                    break;
-                case LEFT:
-                    if (direction != Direction.EAST) direction = Direction.WEST;
-                    break;
+        if (!paused) {
+            if (!keyPressedThisTick) {
+                switch(keyCode) {
+                    case UP:
+                        if (direction != Direction.SOUTH) direction = Direction.NORTH;
+                        break;
+                    case RIGHT:
+                        if (direction != Direction.WEST) direction = Direction.EAST;
+                        break;
+                    case DOWN:
+                        if (direction != Direction.NORTH) direction = Direction.SOUTH;
+                        break;
+                    case LEFT:
+                        if (direction != Direction.EAST) direction = Direction.WEST;
+                        break;
+                }
+                keyPressedThisTick = true;
             }
-            keyPressedThisTick = true;
+            if (keyCode == KeyCode.A) {
+                auto = !auto;
+            }
         }
         if (keyCode == KeyCode.P) {
             paused = !paused;
@@ -254,5 +303,13 @@ public class GameController {
      */
     public boolean isPaused() {
         return paused;
+    }
+    
+    /**
+     * Returns whether the game is set to automatic mode
+     * @return auto
+     */
+    public boolean isAuto() {
+        return auto;
     }
 }
