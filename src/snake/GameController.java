@@ -3,7 +3,6 @@ package snake;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -167,7 +166,7 @@ public class GameController {
         if (shouldGrow) {
             addSnakeCell((int) snakeTail.getX(), (int) snakeTail.getY());
             shouldGrow = false;
-        }        
+        }
     }
     
 //    /**
