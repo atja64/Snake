@@ -104,11 +104,28 @@ public class Snake {
         snake.add(pos);
     }
     
+    public void changeDirection(Direction dir) {
+        switch (dir) {
+            case NORTH:
+                if (direction != Direction.SOUTH) direction = Direction.NORTH;
+                break;
+            case EAST:
+                if (direction != Direction.WEST) direction = Direction.EAST;
+                break;
+            case SOUTH:
+                if (direction != Direction.NORTH) direction = Direction.SOUTH;
+                break;
+            case WEST:
+                if (direction != Direction.EAST) direction = Direction.WEST;
+                break;
+        }
+    }
+    
     /**
      * Gets the position of the snake's head
      * @return the position of the snake's head
      */
-    private Coordinates getHead() {
+    public Coordinates getHead() {
         return snake.get(0);
     }
     
@@ -118,7 +135,7 @@ public class Snake {
      * @param index the index of the body part to retrieve
      * @return the position of the snake's body part
      */
-    private Coordinates getBody(int index) {
+    public Coordinates getBody(int index) {
         return snake.get(index);
     }
     
@@ -126,8 +143,8 @@ public class Snake {
      * Gets the position of the snake's tail
      * @return the position of the snake's tail 
      */
-    private Coordinates getTail() {
-        return snake.get(snake.size());
+    public Coordinates getTail() {
+        return snake.get(snake.size() - 1);
     }
     
     /**
@@ -135,5 +152,9 @@ public class Snake {
      */
     public void eatApple() {
         this.shouldGrow = true;
+    }
+    
+    public int getLength() {
+        return snake.size();
     }
 }
