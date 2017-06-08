@@ -49,8 +49,14 @@ public class Main extends Application {
         StackPane.setMargin(autoLbl, new Insets(10));
         autoLbl.setFont(new Font("Courier New", 20));
         
+        //A label to display the fps of the game
+        final Label fpsLbl = new Label("FPS: ");
+        StackPane.setAlignment(fpsLbl, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(fpsLbl, new Insets(10));
+        fpsLbl.setFont(new Font("Courier New", 20));
+        
         //A StackPane to group the nodes together
-        final StackPane root = new StackPane(canvas, scoreLbl, pausedLbl, autoLbl);
+        final StackPane root = new StackPane(canvas, scoreLbl, pausedLbl, autoLbl, fpsLbl);
         
         //The main scene
         final Scene scene = new Scene(root);
@@ -65,6 +71,8 @@ public class Main extends Application {
         //updating of the score and paused labels.
         new AnimationTimer() {
             long updateNanoTime = System.nanoTime();
+            long secondNanoTime = System.nanoTime();
+            int frameCounter = 0;
             
             @Override
             public void handle(long currentNanoTime) {
@@ -84,6 +92,14 @@ public class Main extends Application {
                         autoLbl.setText("");
                     }                    
                     updateNanoTime = currentNanoTime;
+                    frameCounter++;
+                }
+                
+                //If a second has passed then update the fps label
+                if (currentNanoTime - secondNanoTime >= 1_000_000_000) {
+                    fpsLbl.setText("FPS: " + frameCounter);
+                    frameCounter = 0;
+                    secondNanoTime = currentNanoTime;
                 }
             }
             
