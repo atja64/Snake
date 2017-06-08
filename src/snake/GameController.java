@@ -182,7 +182,7 @@ public class GameController {
             }
         }
         //Has the snake colided with the edge of the game grid?
-        return snake.getHead().getX() < 0 || snake.getHead().getX() > gridWidth || snake.getHead().getY() < 0 || snake.getHead().getY() > gridHeight;
+        return snake.getHead().getX() < 0 || snake.getHead().getX() >= gridWidth || snake.getHead().getY() < 0 || snake.getHead().getY() >= gridHeight;
     }
     
     /**
