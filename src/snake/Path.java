@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Used to calculate the best path to the apple for the snake
  * CURRENTLY NOT USED
- * @author Ashley
+ * @author Ashley Allen
  */
 public class Path {
     private final List<Direction> path = new ArrayList<>();

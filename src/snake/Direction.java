@@ -2,7 +2,7 @@ package snake;
 
 /**
  * An enum that manages the direction of various objects on the game grid
- * @author Ashley
+ * @author Ashley Allen
  */
 public enum Direction {
     NORTH, EAST, SOUTH, WEST;

@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * The main class that handles displaying the game window and receiving user
  * input. Also handles some graphics elements such as labels as well as
  * providing the AnimationTimer for the game to function.
- * @author Ashley
+ * @author Ashley Allen
  */
 public class Main extends Application {
     

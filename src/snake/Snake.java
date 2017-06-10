@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Stores the position of each cell of the snake and performs calculations such
  * as moving the snake
- * @author Ashley
+ * @author Ashley Allen
  */
 public class Snake {
     private final List<Coordinates> snake = new ArrayList<>();

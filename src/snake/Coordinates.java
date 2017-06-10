@@ -2,7 +2,7 @@ package snake;
 
 /**
  * Stores x and y coordinates
- * @author Ashley
+ * @author Ashley Allen
  */
 public class Coordinates {
     private final int x;

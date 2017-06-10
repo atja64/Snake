@@ -2,7 +2,7 @@
 
 A version of the classic game Snake implemented in Java. Uses the JavaFX canvas to draw graphical elements.
 
-<b>Current Features:</b>
+## Current Features:
 
 <ul>
   <li>A snake</li>
@@ -13,7 +13,7 @@ A version of the classic game Snake implemented in Java. Uses the JavaFX canvas 
   <li>Press p to pause</li>
 </ul>
 
-<b>To-Do:</b>
+## To-Do:
 
 <ul>
   <li>Add AI</li>

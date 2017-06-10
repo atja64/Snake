@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * Controls the entire functioning of the game including drawing graphical elements,
  * calculating game states, controlling movement and actions and processing
  * keyboard input.
- * @author Ashley
+ * @author Ashley Allen
  */
 public class GameController {
     private final GraphicsContext gc;
