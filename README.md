@@ -12,3 +12,9 @@ A version of the classic game Snake implemented in Java. Uses the JavaFX canvas 
   <li>Score counter</li>
   <li>Press p to pause</li>
 </ul>
+
+<b>To-Do:</b>
+
+<ul>
+  <li>Add AI</li>
+</ul>

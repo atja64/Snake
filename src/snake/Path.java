@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Used to calculate the best path to the apple for the snake
+ * CURRENTLY NOT USED
  * @author Ashley
  */
 public class Path {
