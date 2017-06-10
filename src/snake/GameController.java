@@ -62,12 +62,14 @@ public class GameController {
     }
     
     /**
-     * Create the apple at a random location on the game grid.
-     * TODO: Fix so it doesn't generate the apple on top of the snake
+     * Create the apple at a random location on the game grid other than where
+     * the snake is.
      */
     private void createApple() {
         Random rnd = new Random();
-        apple = new Coordinates(rnd.nextInt(gridWidth), rnd.nextInt(gridHeight));
+        while (isSnakeAt(apple)) {
+            apple = new Coordinates(rnd.nextInt(gridWidth), rnd.nextInt(gridHeight));
+        }
     }
     
     /**
@@ -103,16 +105,14 @@ public class GameController {
 //    private void getPath() {
 //        path = new Path(snake.getHead());
 //        while (!path.getPos().equals(apple)) {
-//            for (Direction dir : Direction.values()) {
+//            int xDif = path.getPos().getX() - apple.getX();
+//            int yDif = path.getPos().getY() - apple.getY();
+//            if (Math.abs(xDif) < Math.abs(yDif)) {
+//                
+//            } else {
 //                
 //            }
 //        }
-//    }
-//    
-//    private int getAppleDif() {
-//        int xDif = path.getPos().getX() - apple.getX();
-//        int yDif = path.getPos().getY() - apple.getY();
-//        return Math.abs(xDif) + Math.abs(yDif);
 //    }
     
     /**

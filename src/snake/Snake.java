@@ -12,7 +12,7 @@ public class Snake {
     private final List<Coordinates> snake = new ArrayList<>();
     
     private boolean shouldGrow = false;
-    private Direction direction; 
+    private Direction direction;
     
     /**
      * Creates a snake at the specified starting position with the
@@ -149,6 +149,10 @@ public class Snake {
         this.shouldGrow = true;
     }
     
+    /**
+     * Gets the length of the snake
+     * @return the length of the snake
+     */
     public int getLength() {
         return snake.size();
     }
