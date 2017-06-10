@@ -12,12 +12,7 @@ public class Snake {
     private final List<Coordinates> snake = new ArrayList<>();
     
     private boolean shouldGrow = false;
-    private Direction direction;
-    
-    /**
-     * The direction of a snake on the game grid
-     */
-    public static enum Direction {NORTH, EAST, SOUTH, WEST}    
+    private Direction direction; 
     
     /**
      * Creates a snake at the specified starting position with the

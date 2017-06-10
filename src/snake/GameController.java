@@ -5,7 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import snake.Snake.Direction;
 
 /**
  * Controls the entire functioning of the game including drawing graphical elements,

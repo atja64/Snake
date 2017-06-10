@@ -2,7 +2,6 @@ package snake;
 
 import java.util.ArrayList;
 import java.util.List;
-import snake.Snake.Direction;
 
 /**
  * Used to calculate the best path to the apple for the snake
