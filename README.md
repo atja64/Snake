@@ -18,3 +18,7 @@ A version of the classic game Snake implemented in Java. Uses the JavaFX canvas 
 <ul>
   <li>Add AI</li>
 </ul>
+
+## License
+
+This software is licensed under The MIT License. Please see the [LICENSE](LICENSE) file for more information.
