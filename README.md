@@ -1,6 +1,6 @@
 # snake
 
-A version of the classic game Snake implemented in Java and JavaFX.
+A version of the classic game Snake implemented in Java using JavaFX.
 
 ## Current Features
 
