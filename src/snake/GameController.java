@@ -67,9 +67,9 @@ public class GameController {
      */
     private void createApple() {
         Random rnd = new Random();
-        while (isSnakeAt(apple)) {
+        do {
             apple = new Coordinates(rnd.nextInt(gridWidth), rnd.nextInt(gridHeight));
-        }
+        } while (isSnakeAt(apple));
     }
     
     /**
